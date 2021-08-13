@@ -1,3 +1,9 @@
+import { Header } from './Header';
+
 export const App = () => {
-  return <div>react works</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 };
