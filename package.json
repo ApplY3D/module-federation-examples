@@ -1,0 +1,7 @@
+{
+  "name": "my-mfe-examples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Webpack 5 Module Federation examples",
+  "license": "MIT"
+}
