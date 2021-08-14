@@ -35,6 +35,8 @@ Read more:
   ReactDOM.render(<App />, document.getElementById('root'));
   ```
 
+  Check [example](./react-app/src/index.tsx)
+
 ## Useful links that helped me
 
 - [[indepth.dev] Zack Jackson | Webpack 5 Module Federation: A game-changer in JavaScript architecture](https://indepth.dev/posts/1173/webpack-5-module-federation-a-game-changer-in-javascript-architecture)
