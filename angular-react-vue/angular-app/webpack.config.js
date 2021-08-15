@@ -27,6 +27,7 @@ module.exports = {
       name: "angularApp",
       filename: "remoteEntry.js",
       exposes: {
+        "./utils": "./src/utils.ts",
         "./Header": "./src/app/header/header.component.ts",
       },
 
