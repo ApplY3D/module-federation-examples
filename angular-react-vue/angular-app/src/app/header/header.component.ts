@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     (click)="headerclick.emit('angular clicked')"
     class="angular-header"
   >
-    Welcome to Your Angular App {{ title }}
+    Angular App {{ title }}
   </div>`,
   styles: [
     `

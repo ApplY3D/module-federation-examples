@@ -1,5 +1,9 @@
 # Static Module Federation
 
+Angular result example:
+
+![Angular result application](./angular-app/src/assets/angular-app.gif)
+
 ## Init
 
 `application-name` = **angular-app | vue-app | react-app**

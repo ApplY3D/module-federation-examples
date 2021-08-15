@@ -25,7 +25,7 @@ export const Header: FC<Props> = ({ title = '', onHeaderClick }) => {
       className='react-header'
       style={elementStyle}
     >
-      Welcome to Your React App {title}
+      React App {title}
     </div>
   );
 };

@@ -1,7 +1,5 @@
 <template>
-  <div @click="onClick()" class="vue-header">
-    Welcome to Your Vue.js App {{ title }}
-  </div>
+  <div @click="onClick()" class="vue-header">Vue.js App {{ title }}</div>
 </template>
 
 <script>
