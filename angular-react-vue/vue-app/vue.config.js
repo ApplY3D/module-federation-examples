@@ -13,7 +13,8 @@ module.exports = {
           reactApp: 'reactApp@http://localhost:3001/remoteEntry.js',
         },
         exposes: {
-          './Header': './src/components/Header.vue',
+          './Header': './src/components/Header',
+          './utils': './src/utils',
         },
         shared: require('./package.json').dependencies,
       }),
