@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  template: '<div class="angular-header" >Welcome to Your Angular App</div>',
+  template: ` <div
+    (click)="headerclick.emit('angular clicked')"
+    class="angular-header"
+  >
+    Welcome to Your Angular App {{ title }}
+  </div>`,
   styles: [
     `
       .angular-header {
@@ -15,4 +20,7 @@ import { Component } from '@angular/core';
     `,
   ],
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  @Input() title: string = '';
+  @Output() headerclick = new EventEmitter<string>();
+}

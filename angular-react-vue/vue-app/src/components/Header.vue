@@ -1,10 +1,20 @@
 <template>
-  <div class="vue-header">Welcome to Your Vue.js App</div>
+  <div @click="onClick()" class="vue-header">
+    Welcome to Your Vue.js App {{ title }}
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Header',
+  props: ['title'],
+  emits: ['headerclick'],
+  methods: {
+    onClick() {
+      this.$emit('headerclick', 'vue clicked');
+    },
+  },
+
   /*  If you define style here
     you will able to use styles:
       - inside shadow dom,

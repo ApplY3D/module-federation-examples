@@ -1,3 +1,10 @@
+/* if react import will be removed,
+  webpack federation module will will not be able to find React:
+  > Uncaught ReferenceError: React is not defined
+*/
+import React from 'react';
+import { FC } from 'react';
+
 const elementStyle = {
   padding: '16px',
   margin: '2px',
@@ -6,10 +13,19 @@ const elementStyle = {
   border: '3px solid rgba(0, 0, 0, 0.6)',
 };
 
-export const Header = () => {
+interface Props {
+  title?: string;
+  onHeaderClick?: (msg: string) => void;
+}
+
+export const Header: FC<Props> = ({ title = '', onHeaderClick }) => {
   return (
-    <div className='react-header' style={elementStyle}>
-      Welcome to Your React App
+    <div
+      onClick={onHeaderClick ? () => onHeaderClick('react clicked') : undefined}
+      className='react-header'
+      style={elementStyle}
+    >
+      Welcome to Your React App {title}
     </div>
   );
 };
