@@ -7,8 +7,10 @@ import { Component } from '@angular/core';
     `
       .angular-header {
         padding: 16px;
+        margin: 2px;
         border-radius: 8px;
-        background: red;
+        background: rgb(255 92 80);
+        border: 3px solid rgba(0, 0, 0, 0.6);
       }
     `,
   ],

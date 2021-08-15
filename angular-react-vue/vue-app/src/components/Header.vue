@@ -5,13 +5,37 @@
 <script>
 export default {
   name: 'Header',
+  /*  If you define style here
+    you will able to use styles:
+      - inside shadow dom,
+      - inside 🍻 Web Components.
+
+      Vue must declare styles[]
+    automaticly from <style> tag, 
+    but it doesn't happened to me,
+    so just copy it.
+  */
+
+  // use it for 🍻 Web Components
+  styles: [
+    `.vue-header {
+  padding: 16px;
+  margin: 2px;
+  border-radius: 8px;
+  background: mediumseagreen;
+  border: 3px solid rgba(0, 0, 0, 0.6);
+}`,
+  ],
 };
 </script>
 
-<style scoped>
+// use it for default exporting
+<style>
 .vue-header {
   padding: 16px;
+  margin: 2px;
   border-radius: 8px;
   background: mediumseagreen;
+  border: 3px solid rgba(0, 0, 0, 0.6);
 }
 </style>
