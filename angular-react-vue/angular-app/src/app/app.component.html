@@ -1,1 +1,15 @@
-<app-header></app-header>
+<div style="background-color: rgb(255 92 80); height: 94vh; padding: 16px">
+  <app-header (headerclick)="log($event)" [title]="title"></app-header>
+
+  <div style="display: flex">
+    <div style="flex: 1" id="vue-header"></div>
+
+    <vue-header
+      style="flex: 1"
+      [title]="wcTitle"
+      (headerclick)="logWC($event)"
+    ></vue-header>
+  </div>
+
+  <div id="react-header"></div>
+</div>
