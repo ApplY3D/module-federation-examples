@@ -40,6 +40,7 @@ module.exports = {
       name: 'reactApp',
       filename: 'remoteEntry.js',
       exposes: {
+        './utils': './src/utils',
         './Header': './src/components/Header',
       },
 
@@ -47,6 +48,7 @@ module.exports = {
         angularApp: 'angularApp@http://localhost:4201/remoteEntry.js',
         vueApp: 'vueApp@http://localhost:8081/remoteEntry.js',
       },
+      shared: ['react', 'react-dom'],
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
