@@ -68,9 +68,11 @@ apps will be served on:
   <ng-header :title="wcTitle" @headerclick="log($event)"></ng-header>
   ```
 
+* Angular provides awesome api with `detectChanges()` function, so you can mutate your component on fly
+
 ## Strange things / Unexpected behavior
 
-- To create Angular Web Component, you must import `zone` inside [utils file](./angular-app/src/utils.ts).
+- To create Angular Web Component, you must import `zone` inside [utils file](./angular-app/src/utils.ts). Also this behavior may be evaded. Check inside [utils file](./angular-app/src/utils.ts).
 - To render React Element, you must import `React` inside [utils file](./react-app/src/utils.tsx).
 - [In Vue component](./vue-app/src/components/Header.vue), to use both `Web Components` and `native render` you must copy-paste your styles from \<style\> tag into styles[]
 
@@ -79,6 +81,18 @@ apps will be served on:
 ✅ - Ok
 
 ⚠️ - Input prop can be set only when rendered first time
+
+  <details>
+  <summary>Angular</summary>
+  
+| type           | Render | Input | Output |
+| -------------- | ------ | ----- | ------ |
+| Native         | ✅     | ✅    | ✅     |
+| Web Components | ✅     | ✅    | ✅     |
+
+> with `detectChanges()` you can update your inputs on hot
+
+  </details>
 
   <details>
   <summary>Vue:</summary>
@@ -99,16 +113,6 @@ apps will be served on:
 | Web Components | ❔     | ❔    | ❔     |
 
 > Web Components from React seems to work ok, but it's tricky way to implement this
-
-  </details>
-
-  <details>
-  <summary>Angular</summary>
-  
-| type           | Render | Input | Output |
-| -------------- | ------ | ----- | ------ |
-| Native         | ❔     | ❔    | ❔     |
-| Web Components | ✅     | ✅    | ✅     |
 
   </details>
 
@@ -214,6 +218,51 @@ apps will be served on:
       <details>
         <summary> 4.1 Angular: </summary>
 
+    Using Angular render function:
+
+    1. Create exporting file like [utils.ts](./angular-app/src/utils.ts)
+
+    2. `renderAngularComponent` function creates inside self empty ngModule with `ngDoBootstrap` function that bootstraps passed component to passed `DOM selector`. This module have to be bootstrapped with `platformBrowserDynamic` fn:
+
+    ```ts
+    export const renderAngularComponent: IRenderAngularComponent = ({
+      AngularComponent,
+      selector,
+    }) => {
+      let componentRef: ComponentRef<typeof AngularComponent>;
+
+      @NgModule({ imports: [BrowserModule] })
+      class EmptyModule implements DoBootstrap {
+        ngDoBootstrap(appRef: ApplicationRef) {
+          componentRef = appRef.bootstrap(AngularComponent, selector);
+        }
+      }
+
+      return platformBrowserDynamic()
+        .bootstrapModule(EmptyModule)
+        .then((props) => {
+          const newProps = { ...props, componentRef } as TRenderReturn;
+          return newProps;
+        });
+    };
+    ```
+
+    3. Function usage:
+
+    ```ts
+    renderAngularComponent({
+      AngularComponent: AngularHeader,
+      selector: '#ng-header',
+    }).then(({ componentRef }) => {
+      componentRef.instance.title = 'custom title';
+      componentRef.changeDetectorRef.detectChanges();
+
+      const sub = componentRef.instance.headerclick.subscribe(console.log);
+      // also you can use unsubscribe function
+      // sub.unsubscribe();
+    });
+    ```
+
     Using Web Components:
 
     1. Add [@angular/elements](https://angular.io/guide/elements)
@@ -288,7 +337,7 @@ apps will be served on:
 
     ***
 
-    Native:
+    Using Vue render function:
 
     **If you want to use Native mounting, your styles must be declared inside \<style\> tag. [Example](./vue-app/src/components/Header.vue).**
 

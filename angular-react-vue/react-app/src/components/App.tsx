@@ -58,11 +58,20 @@ export const App = () => {
         angularPromise.then(
           ([
             { HeaderComponent: AngularHeader },
-            { defineAngularWebComponent },
+            { defineAngularWebComponent, renderAngularComponent },
           ]) => {
             defineAngularWebComponent({
               AngularComponent: AngularHeader,
               name: 'ng-header',
+            });
+
+            renderAngularComponent({
+              AngularComponent: AngularHeader,
+              selector: '#ng-header',
+            }).then(({ componentRef }: any) => {
+              componentRef.instance.title = title;
+              componentRef.changeDetectorRef.detectChanges();
+              componentRef.instance.headerclick.subscribe(log);
             });
           }
         );
@@ -82,7 +91,8 @@ export const App = () => {
   return (
     <div style={wrapperStyle}>
       <div style={displayFlex}>
-        <div id='ng-header-wc' style={flex1}></div>
+        <div id='ng-header' style={flex1} />
+        <div id='ng-header-wc' style={flex1} />
       </div>
 
       <div style={displayFlex}>

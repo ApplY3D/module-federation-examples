@@ -1,6 +1,14 @@
 <template>
   <div style="background-color: mediumseagreen; height: 94vh; padding: 16px">
-    <ng-header :title="wcTitle" @headerclick="log($event.detail)" />
+    <div style="display: flex;">
+      <div id="ng-header" style="flex:1"></div>
+
+      <ng-header
+        :title="wcTitle"
+        @headerclick="log($event.detail)"
+        style="flex:1"
+      />
+    </div>
 
     <Header :title="title" @headerclick="log($event)" />
 
@@ -42,10 +50,22 @@ function init() {
     import('angularApp/utils'),
   ]);
   angularPromise.then(
-    ([{ HeaderComponent: AngularHeader }, { defineAngularWebComponent }]) => {
+    ([
+      { HeaderComponent: AngularHeader },
+      { defineAngularWebComponent, renderAngularComponent },
+    ]) => {
       defineAngularWebComponent({
         AngularComponent: AngularHeader,
         name: 'ng-header',
+      });
+
+      renderAngularComponent({
+        AngularComponent: AngularHeader,
+        selector: '#ng-header',
+      }).then(({ componentRef }) => {
+        componentRef.instance.title = this.title;
+        componentRef.changeDetectorRef.detectChanges();
+        componentRef.instance.headerclick.subscribe(this.log);
       });
     }
   );
