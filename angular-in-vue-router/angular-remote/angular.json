@@ -8,7 +8,7 @@
       "prefix": "angular-remote",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/angular-app",
@@ -22,7 +22,9 @@
               "apps/angular-app/src/assets"
             ],
             "styles": ["apps/angular-app/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "extraWebpackConfig": "apps/angular-app/webpack.config.js",
+            "commonChunk": false
           },
           "configurations": {
             "production": {
@@ -44,7 +46,8 @@
                   "with": "apps/angular-app/src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "extraWebpackConfig": "apps/angular-app/webpack.prod.config.js"
             },
             "development": {
               "buildOptimizer": false,
@@ -58,21 +61,27 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-app:build:production"
+              "browserTarget": "angular-app:build:production",
+              "extraWebpackConfig": "apps/angular-app/webpack.prod.config.js"
             },
             "development": {
               "browserTarget": "angular-app:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "extraWebpackConfig": "apps/angular-app/webpack.config.js",
+            "port": 4201
+          }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "ngx-build-plus:extract-i18n",
           "options": {
-            "browserTarget": "angular-app:build"
+            "browserTarget": "angular-app:build",
+            "extraWebpackConfig": "apps/angular-app/webpack.config.js"
           }
         },
         "lint": {
@@ -85,11 +94,12 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "builder": "ngx-build-plus:karma",
           "outputs": ["coverage/apps/angular-app"],
           "options": {
             "jestConfig": "apps/angular-app/jest.config.js",
-            "passWithNoTests": true
+            "passWithNoTests": true,
+            "extraWebpackConfig": "apps/angular-app/webpack.config.js"
           }
         }
       }
