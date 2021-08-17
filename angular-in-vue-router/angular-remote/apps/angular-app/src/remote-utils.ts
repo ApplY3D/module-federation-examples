@@ -23,7 +23,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import 'zone.js';
 
 @NgModule({ imports: [BrowserModule] })
-class EmptyModuleWC {}
+class EmptyModuleWC {
+  ngDoBootstrap() {
+    return 1;
+  }
+}
 
 export const defineAngularWebComponent = ({
   AngularComponent,
