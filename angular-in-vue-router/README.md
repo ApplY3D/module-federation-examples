@@ -95,3 +95,26 @@ new ModuleFederationPlugin({
   //...
 });
 ```
+
+You may also need add path to `remote-utils.ts` your to `tsconfig.app.json`, if some error occur:
+
+**If you exposes library that was never imported into your Angular app, Webpack will drop error**:
+
+```bash
+./libs/share/counter/src/index.ts - Error: Module build failed (from ./node_modules/@ngtools/webpack/src/ivy/index.js):
+Error: /Users/name/Documents/work/micro-fe/my-mfe-examples/angular-in-vue-router/angular-remote/libs/share/counter/src/index.ts is missing from the TypeScript compilation. Please make sure it is in your tsconfig via the 'files' or 'include' property.
+    at /Users/name/Documents/work/micro-fe/my-mfe-examples/angular-in-vue-router/angular-remote/node_modules/@ngtools/webpack/src/ivy/loader.js:59:26
+    at processTicksAndRejections (internal/process/task_queues.js:95:5)
+```
+
+I found how to fix it, you might add to your sharing Angular app's [tsconfig.app.json](./angular-remote/apps/angular-app/tsconfig.app.json):
+
+```json
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts",
+    "src/remote-utils.ts", // <-- single file
+    "../../libs/shared/counter/src/index.ts" // <-- library
+```
+
+6. Added service and [shared like singleton](https://stackoverflow.com/a/64577080)

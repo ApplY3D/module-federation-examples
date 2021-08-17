@@ -129,6 +129,27 @@
         }
       }
     },
+    "shared-counter": {
+      "root": "libs/shared/counter",
+      "sourceRoot": "libs/shared/counter/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/counter/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/counter"],
+          "options": {
+            "jestConfig": "libs/shared/counter/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-styles-provider": {
       "root": "libs/shared/styles-provider",
       "sourceRoot": "libs/shared/styles-provider/src",

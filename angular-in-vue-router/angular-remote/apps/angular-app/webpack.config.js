@@ -28,6 +28,7 @@ module.exports = {
       exposes: {
         './styles': 'libs/shared/styles-provider/src/index',
         './utils': 'apps/angular-app/src/remote-utils',
+        './counter-service': 'libs/shared/counter/src/index',
       },
 
       shared: share({
@@ -50,6 +51,12 @@ module.exports = {
           singleton: true,
           strictVersion: true,
           requiredVersion: 'auto',
+        },
+
+        '@angular-remote/shared/counter': {
+          singleton: true,
+          strictVersion: false,
+          import: 'libs/shared/counter/src/index',
         },
 
         ...sharedMappings.getDescriptors(),

@@ -35,6 +35,9 @@
       "tags": [],
       "implicitDependencies": ["angular-app"]
     },
+    "shared-counter": {
+      "tags": []
+    },
     "shared-styles-provider": {
       "tags": []
     }

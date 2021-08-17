@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@angular-remote/shared/counter": ["libs/shared/counter/src/index.ts"],
       "@shared/styles-provider": ["libs/shared/styles-provider/src/index.ts"]
     }
   },
