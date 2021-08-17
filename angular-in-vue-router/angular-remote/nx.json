@@ -14,12 +14,7 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "accessToken": "MGRmMmU2YjktNGJiYy00NTBlLWE2YTEtNGJkYjQ5OWIzZGFhfHJlYWQtd3JpdGU="
       }
     }
@@ -38,9 +33,10 @@
     },
     "angular-app-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "angular-app"
-      ]
+      "implicitDependencies": ["angular-app"]
+    },
+    "shared-styles-provider": {
+      "tags": []
     }
   }
 }

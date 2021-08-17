@@ -21,7 +21,6 @@
               "apps/angular-app/src/favicon.ico",
               "apps/angular-app/src/assets"
             ],
-            "styles": ["apps/angular-app/src/styles.scss"],
             "scripts": [],
             "extraWebpackConfig": "apps/angular-app/webpack.config.js",
             "commonChunk": false
@@ -126,6 +125,27 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/angular-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "shared-styles-provider": {
+      "root": "libs/shared/styles-provider",
+      "sourceRoot": "libs/shared/styles-provider/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/styles-provider/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/styles-provider"],
+          "options": {
+            "jestConfig": "libs/shared/styles-provider/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }
