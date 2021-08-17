@@ -6,4 +6,4 @@ import { Component, ViewEncapsulation } from '@angular/core';
   template: '',
   encapsulation: ViewEncapsulation.None,
 })
-export class StylesProvider {}
+export class StylesProviderComponent {}

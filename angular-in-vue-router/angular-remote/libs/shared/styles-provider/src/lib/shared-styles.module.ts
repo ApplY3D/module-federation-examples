@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StylesProvider } from './shared-styles.component';
+import { StylesProviderComponent } from './shared-styles.component';
 
 @NgModule({
-  declarations: [StylesProvider],
+  declarations: [StylesProviderComponent],
   imports: [CommonModule],
-  exports: [StylesProvider],
+  exports: [StylesProviderComponent],
 })
 export class SharedCoreModule {}
