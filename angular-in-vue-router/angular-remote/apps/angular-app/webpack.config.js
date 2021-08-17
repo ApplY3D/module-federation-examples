@@ -23,18 +23,12 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      // For remotes (please adjust)
-      // name: "angularApp",
-      // filename: "remoteEntry.js",
-      // exposes: {
-      //     './Component': './apps/angular-app/src/app/app.component.ts',
-      // },
-
-      // For hosts (please adjust)
-      // remotes: {
-      //     "mfe1": "mfe1@http://localhost:3000/remoteEntry.js",
-
-      // },
+      name: 'angularApp',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './styles': 'libs/shared/styles-provider/src/index',
+        './utils': 'apps/angular-app/src/remote-utils',
+      },
 
       shared: share({
         '@angular/core': {

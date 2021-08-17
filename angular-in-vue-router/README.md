@@ -48,3 +48,18 @@ export class StylesProvider {}
 > This component must be inserted on page to bring styles to page
 
 4. Create utils to insert Angular app inside Vue inside new [file](./angular-remote/libs/shared/remote-utils/src/lib/index.ts). One way is define Web Component, so I used [@angular/elements](https://angular.io/guide/elements).
+
+5. Export your libraries from Angular:
+
+`webpack.config.js`
+
+```ts
+new ModuleFederationPlugin({
+  //...
+  exposes: {
+    './styles': 'libs/shared/styles-provider/src/index',
+    './utils': 'apps/angular-app/src/remote-utils',
+  },
+  //...
+});
+```
