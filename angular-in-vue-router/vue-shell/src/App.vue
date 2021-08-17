@@ -1,5 +1,6 @@
 <template>
   <div>
+    <angular-style-provider></angular-style-provider>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -7,6 +8,26 @@
     <router-view />
   </div>
 </template>
+
+<script>
+import { defineComponent } from 'vue';
+
+const ngPromise = Promise.all([
+  import('angularApp/utils'),
+  import('angularApp/styles'),
+]);
+
+ngPromise.then(([{ defineAngularWebComponent }, { StylesProviderComponent }]) =>
+  defineAngularWebComponent({
+    AngularComponent: StylesProviderComponent,
+    name: 'angular-style-provider',
+  })
+);
+
+export default defineComponent({
+  name: 'App',
+});
+</script>
 
 <style>
 #app {

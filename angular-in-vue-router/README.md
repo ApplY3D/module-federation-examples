@@ -10,6 +10,38 @@
   - Home - http://localhost:8081/http://localhost:8081/
   - About - http://localhost:8081/http://localhost:8081/about
 
+3. Import Angular styles-provider and connect it to the template:
+
+```html
+<template>
+  <div>
+    <angular-style-provider></angular-style-provider>
+    <router-view />
+  </div>
+</template>
+
+<script>
+  import { defineComponent } from 'vue';
+
+  const ngPromise = Promise.all([
+    import('angularApp/utils'),
+    import('angularApp/styles'),
+  ]);
+
+  ngPromise.then(
+    ([{ defineAngularWebComponent }, { StylesProviderComponent }]) =>
+      defineAngularWebComponent({
+        AngularComponent: StylesProviderComponent,
+        name: 'angular-style-provider',
+      })
+  );
+
+  export default defineComponent({
+    name: 'App',
+  });
+</script>
+```
+
 ## Angular configuration
 
 1. Init Angular with [nx](https://nx.dev/) and [@angular/material](https://material.angular.io/).

@@ -4,7 +4,15 @@ const ModuleFederationPlugin = require('webpack').container
 const packageJson = require('./package.json');
 
 module.exports = {
-  publicPath: 'http://localhost:8081/',
+  /**
+   * don't use public path with router
+   * or your routes will be like:
+   *
+   *  * Home  - http://localhost:8081/http://localhost:8081/
+   *  * About - http://localhost:8081/http://localhost:8081/about
+   *
+   * */
+  // publicPath: 'http://localhost:8081/',
   configureWebpack: {
     plugins: [
       new ModuleFederationPlugin({
