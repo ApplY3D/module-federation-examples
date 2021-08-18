@@ -2,9 +2,11 @@
   <div class="about">
     <h1>This is an about page lazy loaded</h1>
     <ng-btn-decrement></ng-btn-decrement>
-    <ng-counter-state></ng-counter-state>
+    <span style="margin: 0 32px;">
+      <ng-counter-state></ng-counter-state>
+    </span>
     <ng-btn-increment></ng-btn-increment>
-    <h2>...with saved component state</h2>
+    <h2>...with saved components state</h2>
   </div>
 </template>
 

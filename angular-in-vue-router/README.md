@@ -10,9 +10,15 @@ Rendering `component` with EmptyModule appears only first time. If user will cha
 
 ### No change detection?
 
+**Better to use Module Federation with stateless apps**
+
 Service that providedIn: `platform` have BehaviorSubject. It's subscribers receives only first value when rendered (used Web Components):
 
-![](./images/app-service-no-updates.gif)
+![](./images/detect-changes-broken.gif)
+
+You might enable [manually change detection](#detect-changes-manually) (enabled for home icon):
+
+![](./images/detect-changes-manually.gif)
 
 ### Memory leak?
 
@@ -26,7 +32,7 @@ constructor() {
 
 **✅ Message `counter service created` appears only first time, but:**
 
-There are `x` instances of service in memory for `x` components using service (but check gif upper, they are sharing)
+There are `x` instances of service in memory for `x` components using service (but check gif above, they are sharing)
 
 ![](./images/memory-3x-services.png)
 
@@ -160,3 +166,44 @@ export class CounterService {...}
 ```
 
 7. Added component that uses service, configured webpack, added path to `tsconfig.app.json`.
+
+<a id="detect-changes-manually"></a>
+
+8. In components, you must manually detect changes:
+
+Convert this:
+
+```ts
+export class CounterNumComponent {
+  count$ = this.counterService.count$;
+
+  constructor(private counterService: CounterService) {}
+}
+```
+
+To this:
+
+```ts
+export class CounterNumComponent {
+  count?: number;
+  sub?: Subscription;
+
+  constructor(
+    private counterService: CounterService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
+    this.sub = this.counterService.count$.subscribe((value) => {
+      this.count = value;
+      this.changeDetectorRef.detectChanges();
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.sub) {
+      this?.sub.unsubscribe();
+    }
+  }
+}
+```

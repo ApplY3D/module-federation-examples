@@ -1,7 +1,9 @@
 <template>
   <div>
     <ng-btn-decrement></ng-btn-decrement>
-    <ng-counter-state></ng-counter-state>
+    <span style="margin: 0 32px;">
+      <ng-counter-state></ng-counter-state>
+    </span>
     <ng-btn-increment></ng-btn-increment>
   </div>
 </template>
