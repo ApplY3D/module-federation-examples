@@ -21,7 +21,12 @@ module.exports = {
         remotes: {
           angularApp: 'angularApp@http://localhost:4201/remoteEntry.js',
         },
-        shared: { ...packageJson.dependencies },
+        shared: {
+          ...packageJson.dependencies,
+          '@angular-remote/shared/counter': {
+            singleton: true,
+          },
+        },
       }),
     ],
   },
