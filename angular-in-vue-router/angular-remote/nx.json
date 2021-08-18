@@ -1,0 +1,51 @@
+{
+  "npmScope": "angular-remote",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "MGRmMmU2YjktNGJiYy00NTBlLWE2YTEtNGJkYjQ5OWIzZGFhfHJlYWQtd3JpdGU="
+      }
+    }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {
+    "angular-app": {
+      "tags": []
+    },
+    "angular-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["angular-app"]
+    },
+    "shared-btn-decrement": {
+      "tags": []
+    },
+    "shared-btn-increment": {
+      "tags": []
+    },
+    "shared-counter": {
+      "tags": []
+    },
+    "shared-styles-provider": {
+      "tags": []
+    }
+  }
+}

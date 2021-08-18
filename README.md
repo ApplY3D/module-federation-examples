@@ -8,14 +8,15 @@ Read more:
 ## Projects
 
 - [angular-react-vue](./angular-react-vue/) - simple app with angular-vue-react each to each connection
+- [angular-in-vue-router](./angular-in-vue-router/) - connecting Angular inside Vue with Vue Router
 
 ## General rules:
 
-<a name="plugin-config"></a>
+<a id="plugin-config"></a>
 
 - Configure webpack [ModuleFederationPlugin](https://webpack.js.org/plugins/module-federation-plugin/)
 
-<a name="asynchronous-boundary"></a>
+<a id="asynchronous-boundary"></a>
 
 - Use `bootstrap.js` files to redefine entry points with asynchronous boundary is strongly recommended way:
 

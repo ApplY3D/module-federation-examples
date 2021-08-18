@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": []
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts",
+    "src/remote-utils.ts",
+    "../../libs/shared/counter/src/index.ts",
+    "../../libs/shared/btn-increment/src/index.ts",
+    "../../libs/shared/btn-decrement/src/index.ts"
+  ],
+  "include": ["src/**/*.d.ts"]
+}
