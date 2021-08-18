@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CounterService } from './counter.service';
+import { CounterService } from '@angular-remote/shared/counter';
 
 @Component({
-  selector: 'app-counter',
+  selector: 'angular-remote-counter',
   template: `<mat-icon
     [matBadge]="count$ | async"
     matBadgePosition="before"
@@ -10,7 +10,7 @@ import { CounterService } from './counter.service';
     >home</mat-icon
   >`,
 })
-export class CounterComponent {
+export class CounterNumComponent {
   count$ = this.counterService.count$;
 
   constructor(private counterService: CounterService) {}

@@ -28,7 +28,10 @@ module.exports = {
       exposes: {
         './styles': 'libs/shared/styles-provider/src/index',
         './utils': 'apps/angular-app/src/remote-utils',
-        './counter-service': 'libs/shared/counter/src/index',
+        './btn-increment': 'libs/shared/btn-increment/src/index',
+        './btn-decrement': 'libs/shared/btn-decrement/src/index',
+        './counter-state':
+          'apps/angular-app/src/app/counter-num/counter-num.component',
       },
 
       shared: share({

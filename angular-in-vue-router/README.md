@@ -1,5 +1,35 @@
 # Vue Router with federated Angular
 
+All conclusions have been drawn only for this implementation
+
+## Issues
+
+### Web Components are better?
+
+Rendering `component` with EmptyModule appears only first time. If user will change route and then back, No `component` will be rendered by Angular.
+
+### No change detection?
+
+Service that providedIn: `platform` have BehaviorSubject. It's subscribers receives only first value when rendered (used Web Components):
+
+![](./images/app-service-no-updates.gif)
+
+### Memory leak?
+
+Service, also providedIn: `platform`:
+
+```ts
+constructor() {
+  console.log('counter service created');
+}
+```
+
+**✅ Message `counter service created` appears only first time, but:**
+
+There are `x` instances of service in memory for `x` components using service (but check gif upper, they are sharing)
+
+![](./images/memory-3x-services.png)
+
 ## Vue configuration
 
 1. Init Vue with [Vue Router](https://router.vuejs.org/ru/).
@@ -41,6 +71,8 @@
   });
 </script>
 ```
+
+> If you walk through routes, `renderAngularComponent` function create component only first time when you visit route
 
 ## Angular configuration
 
@@ -115,6 +147,16 @@ I found how to fix it, you might add to your sharing Angular app's [tsconfig.app
     "src/polyfills.ts",
     "src/remote-utils.ts", // <-- single file
     "../../libs/shared/counter/src/index.ts" // <-- library
+    "../../libs/shared/btn-increment/src/index.ts" // <-- 7th step
 ```
 
-6. Added service and [shared like singleton](https://stackoverflow.com/a/64577080)
+6. Added service and [share like singleton](https://stackoverflow.com/a/64577080)
+
+This example works with `platform` [providedIn option](https://next.angular.io/api/core/Injectable):
+
+```ts
+@Injectable({ providedIn: 'platform' })
+export class CounterService {...}
+```
+
+7. Added component that uses service, configured webpack, added path to `tsconfig.app.json`.

@@ -35,6 +35,12 @@
       "tags": [],
       "implicitDependencies": ["angular-app"]
     },
+    "shared-btn-decrement": {
+      "tags": []
+    },
+    "shared-btn-increment": {
+      "tags": []
+    },
     "shared-counter": {
       "tags": []
     },

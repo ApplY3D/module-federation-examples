@@ -129,6 +129,48 @@
         }
       }
     },
+    "shared-btn-decrement": {
+      "root": "libs/shared/btn-decrement",
+      "sourceRoot": "libs/shared/btn-decrement/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/btn-decrement/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/btn-decrement"],
+          "options": {
+            "jestConfig": "libs/shared/btn-decrement/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-btn-increment": {
+      "root": "libs/shared/btn-increment",
+      "sourceRoot": "libs/shared/btn-increment/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/btn-increment/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/btn-increment"],
+          "options": {
+            "jestConfig": "libs/shared/btn-increment/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-counter": {
       "root": "libs/shared/counter",
       "sourceRoot": "libs/shared/counter/src",
