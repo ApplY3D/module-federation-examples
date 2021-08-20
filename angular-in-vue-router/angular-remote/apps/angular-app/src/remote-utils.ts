@@ -1,18 +1,21 @@
+import './polyfills';
+
 import {
-  loadRemoteEntry,
-  loadRemoteModule,
-} from '@angular-architects/module-federation';
-import {
-  ApplicationRef,
   ComponentRef,
   DoBootstrap,
+  enableProdMode,
   NgModule,
   NgModuleRef,
   Type,
 } from '@angular/core';
-import { createCustomElement } from '@angular/elements';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { environment } from './environments/environment';
+
+import { CounterNumComponent } from '../src/app/counter-num/counter-num.component';
+import { BtnDecrementComponent } from '@angular-remote/shared/btn-decrement';
+import { BtnIncrementComponent } from '@angular-remote/shared/btn-increment';
+
 /**
  * Zone must be imported to prevent error:
  * > In this configuration Angular requires Zone.js
@@ -21,57 +24,84 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
  * .bootstrapModule(EmptyModule, { ngZone: 'noop' })
  */
 import 'zone.js';
+import { createCustomElement } from '@angular/elements';
+
+let _ngModuleAppProvider: undefined | NgModuleRef<any>;
 
 @NgModule({ imports: [BrowserModule] })
-class EmptyModuleWC {
+class EmptyModule implements DoBootstrap {
   ngDoBootstrap() {
-    return 1;
+    console.log('Bootstrapped ng app');
   }
 }
 
-export const defineAngularWebComponent = ({
-  AngularComponent,
-  name,
-}: {
-  AngularComponent: Type<any>;
-  name: string;
-}) => {
-  return platformBrowserDynamic()
-    .bootstrapModule(EmptyModuleWC)
-    .then(({ injector }) => {
-      const angularEl = createCustomElement(AngularComponent, { injector });
-      customElements.define(name, angularEl);
-    });
+const defineExposedModules = () => {
+  defineAngularWebComponent(BtnIncrementComponent, 'ng-btn-increment');
+  defineAngularWebComponent(BtnDecrementComponent, 'ng-btn-decrement');
+  defineAngularWebComponent(CounterNumComponent, 'ng-counter-state');
 };
 
-type TRenderReturn = NgModuleRef<any> & {
-  componentRef: ComponentRef<Type<any>>;
-};
-
-interface IRenderAngularComponent {
-  (props: {
-    AngularComponent: Type<any>;
-    selector: string | Element;
-  }): Promise<TRenderReturn>;
-}
-
-export const renderAngularComponent: IRenderAngularComponent = ({
-  AngularComponent,
-  selector,
-}) => {
-  let componentRef: ComponentRef<typeof AngularComponent>;
-
-  @NgModule({ imports: [BrowserModule] })
-  class EmptyModule implements DoBootstrap {
-    ngDoBootstrap(appRef: ApplicationRef) {
-      componentRef = appRef.bootstrap(AngularComponent, selector);
-    }
+/**
+ * Bootstraps Angular app
+ *
+ * * Might be called once
+ */
+export const bootstrapAngularApp = async (
+  AngularModule: Type<any> = EmptyModule
+  // afterNgAppInit: (props: NgModuleRef<any>) => void
+) => {
+  if (_ngModuleAppProvider) {
+    throw new Error('Root module already exists');
   }
 
-  return platformBrowserDynamic()
-    .bootstrapModule(EmptyModule)
-    .then((props) => {
-      const newProps = { ...props, componentRef } as TRenderReturn;
-      return newProps;
-    });
+  if (environment.production) {
+    enableProdMode();
+  }
+
+  const ngModuleRef = await platformBrowserDynamic().bootstrapModule(
+    AngularModule
+  );
+
+  _ngModuleAppProvider = <NgModuleRef<any>>{
+    ...ngModuleRef,
+  };
+
+  // Better to pass callback to your bootstrapAngularApp:
+  // afterNgAppInit(_ngModuleProvider)
+  //
+  // but for example I did dirty:
+  defineExposedModules();
+};
+
+export const renderComponent = (
+  AngularComponent: Type<any>,
+  selector: string
+): ComponentRef<any> => {
+  if (!_ngModuleAppProvider) {
+    throw new Error('No root module found');
+  }
+
+  const { componentFactoryResolver, injector } = _ngModuleAppProvider;
+
+  const ngComponent =
+    componentFactoryResolver.resolveComponentFactory(AngularComponent);
+  const ngComponentRef = ngComponent.create(injector, undefined, selector);
+
+  return ngComponentRef;
+};
+
+export const defineAngularWebComponent = (
+  AngularComponent: Type<any>,
+  name: string
+) => {
+  if (!_ngModuleAppProvider) {
+    throw new Error('No root module found');
+  }
+
+  const ngComponentConstructor = createCustomElement(AngularComponent, {
+    injector: _ngModuleAppProvider?.injector,
+  });
+  customElements.define(name, ngComponentConstructor);
+
+  return ngComponentConstructor;
 };

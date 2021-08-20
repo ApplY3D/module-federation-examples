@@ -12,20 +12,24 @@
 <script>
 import { defineComponent } from 'vue';
 
-const ngPromise = Promise.all([
-  import('angularApp/utils'),
-  import('angularApp/styles'),
-]);
-
-ngPromise.then(([{ defineAngularWebComponent }, { StylesProviderComponent }]) =>
-  defineAngularWebComponent({
-    AngularComponent: StylesProviderComponent,
-    name: 'angular-style-provider',
-  })
-);
-
 export default defineComponent({
   name: 'App',
+  data: () => ({
+    bootstrapped: false,
+  }),
+  async created() {
+    try {
+      const { defineAngularWebComponent } = await import('angularApp/utils');
+      const { StylesProviderComponent } = await import('angularApp/styles');
+
+      defineAngularWebComponent(
+        StylesProviderComponent,
+        'angular-style-provider'
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  },
 });
 </script>
 

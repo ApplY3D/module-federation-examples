@@ -56,11 +56,12 @@ module.exports = {
           requiredVersion: 'auto',
         },
 
-        '@angular-remote/shared/counter': {
-          singleton: true,
-          strictVersion: false,
-          import: 'libs/shared/counter/src/index',
-        },
+        // It's working without sharing
+        // '@angular-remote/shared/counter': {
+        //   singleton: true,
+        //   strictVersion: false,
+        //   import: 'libs/shared/counter/src/index',
+        // },
 
         ...sharedMappings.getDescriptors(),
       }),
