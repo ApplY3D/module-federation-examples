@@ -23,10 +23,10 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "angularRemote",
+      name: "angularApp",
       filename: "remoteEntry.js",
       exposes: {
-        "./TodoList": "./src/app/todos/todos.component.ts",
+        "./utils": "./src/utils",
       },
 
       shared: share({

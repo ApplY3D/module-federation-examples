@@ -1,3 +1,11 @@
+# WIP
+
+☑️ concept approved
+
+- check why `async` doesn't works if don't import to root module
+- check why @ViewChild doesn't works if don't import to root module
+- check why todos store doesn't works if don't import to root module
+
 ## Vue
 
 1. init app
