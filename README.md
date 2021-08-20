@@ -9,6 +9,7 @@ Read more:
 
 - [angular-react-vue](./angular-react-vue/) - simple app with angular-vue-react each to each connection
 - [angular-in-vue-router](./angular-in-vue-router/) - connecting Angular inside Vue with Vue Router
+- [angular-ngrx-in-vue-router](./angular-ngrx-in-vue-router/) - connecting Angular inside Vue with Vue Router with ngrx
 
 ## General rules:
 

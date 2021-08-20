@@ -18,9 +18,11 @@ export const todosReducer = createReducer(
   on(addTodo, (state, { payload: { title } }) => ({
     ...state,
     todos: [...state.todos, title],
+    lastEdit: new Date().toDateString(),
   })),
   on(removeTodo, (state, { payload: { id } }) => ({
     ...state,
     todos: [...state.todos.slice(0, +id), ...state.todos.slice(+id + 1)],
+    lastEdit: new Date().toDateString(),
   }))
 );
