@@ -7,9 +7,9 @@ Read more:
 
 ## Projects
 
-- [angular-react-vue](./angular-react-vue/) - simple app with angular-vue-react each to each connection
-- [angular-in-vue-router](./angular-in-vue-router/) - connecting Angular inside Vue with Vue Router
-- [angular-ngrx-in-vue-router](./angular-ngrx-in-vue-router/) - connecting Angular inside Vue with Vue Router with ngrx
+- [angular-in-vue-router ✅ Best practice](./angular-in-vue-router/) - connecting Angular inside Vue with Vue Router
+- [angular-ngrx-vue-router ✅ Best practice](./angular-ngrx-vue-router/) - connecting Angular inside Vue with Vue Router with ngrx
+- [angular-react-vue ⚠️ No services working](./angular-react-vue/) - simple app with angular-vue-react each to each connection
 
 ## General rules:
 
