@@ -17,6 +17,7 @@ import 'zone.js';
 
 import { AppModule } from './app/app.module';
 import { TodosComponent } from './app/todos/todos.component';
+import { StoreProvider } from './app/store.provider';
 
 let _ngModuleAppProvider: undefined | NgModuleRef<any>;
 
@@ -50,6 +51,7 @@ export const bootstrapAngularApp = async (
   //
   // but for example I did dirty:
   defineAngularWebComponent(TodosComponent, 'ng-todo-list');
+  defineAngularWebComponent(StoreProvider, 'ng-store-provider');
 };
 
 export const defineAngularWebComponent = (

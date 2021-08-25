@@ -4,9 +4,37 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/todos">Todos</router-link>
     </div>
+
+    <button @click="decrement()">-</button>
+    {{ store.state.count }}
+    <button @click="increment()">+</button>
+
     <router-view />
+
+    <ng-store-provider :store="{ ...store }" />
   </div>
 </template>
+
+<script>
+import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
+
+export default defineComponent({
+  name: 'App',
+  setup() {
+    const store = useStore();
+
+    function increment() {
+      store.dispatch('increment');
+    }
+    function decrement() {
+      store.dispatch('decrement');
+    }
+
+    return { store, increment, decrement };
+  },
+});
+</script>
 
 <style lang="scss">
 #app {
