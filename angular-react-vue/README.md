@@ -173,6 +173,8 @@ apps will be served on:
     npm i webpack @vue/cli-plugin-babel@5.0.0-beta.2 @vue/cli-service@5.0.0-beta.2 -D
     ```
 
+    **If you use PWA, also install `@vue/cli-plugin-pwa@5.0.0-beta.2`**
+
     2. Create [vue.config.js](./vue-app/src/vue.config.js) that exports [webpack configuration](https://cli.vuejs.org/guide/webpack.html) with [ModuleFederationPlugin setup](https://webpack.js.org/concepts/module-federation/#promise-based-dynamic-remotes)
 
     3. Create [asynchronous boundary](../README.md#asynchronous-boundary)
